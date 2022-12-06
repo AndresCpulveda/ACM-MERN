@@ -1,5 +1,6 @@
 import Admin from "../models/Admins.js";
 import generateId from "../helpers/generateId.js";
+import generateJwt from "../helpers/generateJwt.js";
 
 const register = async (req, res) => {
   const {name, email, password} = req.body;
@@ -19,7 +20,30 @@ const register = async (req, res) => {
 }
 
 
-const authenticate = (req, res) => {
+const authenticate = async (req, res) => {
+  const {email, password} = req.body;
+
+  const account = await Admin.findOne({email})
+  if(!account) {
+    return res.status(404).json({msg: 'Correo invalido'})
+  }
+
+  if(!account.confirmed) {
+    return res.status(403).json({msg: 'Cuenta no ha sido confirmada'})
+  }
+
+  const isValid = await account.checkPassword(password)
+
+  if(!isValid) {
+    return res.status(400).json({msg: 'Contraseña incorrecta'})
+  }
+
+  res.json({
+    id: account._id,
+    name: account.name,
+    email: account.email,
+    token: generateJwt(account._id)
+  })
 }
 
 
@@ -87,13 +111,13 @@ const newPassword = async (req, res) => {
     await account.save()
     res.json({msg: 'Contraseña cambiada'})
   } catch (error) {
-    
+    console.log(error);
   }
 }
 
 
 const profile = (req, res) => {
-
+  res.json(req.admin)
 }
 
 
