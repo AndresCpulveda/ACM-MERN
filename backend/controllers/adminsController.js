@@ -1,6 +1,8 @@
 import Admin from "../models/Admins.js";
 import generateId from "../helpers/generateId.js";
 import generateJwt from "../helpers/generateJwt.js";
+import emailConfirm from "../helpers/emailConfirmRegister.js";
+import emailForgotPswd from "../helpers/emailForgotPassword.js";
 
 const register = async (req, res) => {
   const {name, email, password} = req.body;
@@ -13,6 +15,7 @@ const register = async (req, res) => {
     const registered = {name, email, password}
     const admin = new Admin(registered)
     const saved = await admin.save()
+    emailConfirm({name, email, token: saved.token})
     res.json(saved)
   } catch (error) {
     console.log(error);
@@ -76,6 +79,7 @@ const forgotPassword = async (req, res) => {
   try {
     account.token = generateId();
     await account.save()
+    emailForgotPswd({email, name: account.name, token: account.token})
     res.json({msg: 'Email de restablecimiento enviado'})
   } catch (error) {
     console.log(error);
