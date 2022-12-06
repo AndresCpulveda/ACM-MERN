@@ -16,7 +16,7 @@ routerAdministrators.route("/forgot-password/:token").get(validateTokenPassword)
 //Private Area
 routerAdministrators.get("/", checkAuth, profile)
 routerAdministrators.put("/change-profile", checkAuth, changeProfile)
-routerAdministrators.put("/change-password", changePassword)
+routerAdministrators.put("/change-password", checkAuth, changePassword)
 
 
 export default routerAdministrators

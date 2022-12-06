@@ -121,13 +121,52 @@ const profile = (req, res) => {
 }
 
 
-const changeProfile = (req, res) => {
-
+const changeProfile = async (req, res) => {
+  const {admin} = req;
+  const {name, email} = req.body;
+  const account = await Admin.findById(admin.id)
+  if(!account) {
+    return res.status(404).json({msg: 'Enlace invalido o sesion caducada'})
+  }
+  if(admin.email != email) {
+    const exists = await Admin.findOne({email})
+    if(exists) {
+      return res.status(403).json({msg: 'Correo ya está en uso'})
+    }
+  }
+  try {
+    account.name = name || account.name;
+    account.email = email || account.email;
+    await account.save()
+    res.json({msg: 'Cuenta modificada con exito'})
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 
-const changePassword = (req, res) => {
+const changePassword = async(req, res) => {
+  const {current, changed} = req.body.passwords;
+  const {admin} = req;
 
+  const account = await Admin.findById(admin.id)
+
+  if(!account) {
+    return res.status(404).json({msg: 'Enlace invalido o sesion expirada'})
+  }
+
+  const isValid = await account.checkPassword(current)
+  if(!isValid) {
+    return res.status(400).json({msg: 'Contraseña incorrecta'})
+  }
+
+  try {
+   account.password = changed
+   await account.save() 
+   res.json({msg: 'Contraseña cambiada con exito'})
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export {register, authenticate, confirmAccount, forgotPassword, validateTokenPassword, newPassword, profile, changeProfile, changePassword}
