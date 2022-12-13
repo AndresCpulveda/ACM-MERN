@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 import routerAdministrators from "./routes/adminsRoutes.js";
 import routerClients from "./routes/clientsRoutes.js";
@@ -11,8 +12,14 @@ dotenv.config()
 
 connectDB()
 
+app.use(cors({
+  origin: "http://127.0.0.1:5173"
+}));
+
 app.use("/api/administrators", routerAdministrators)
 app.use("/api/clients", routerClients)
+
+
 
 const port = 4000;
 
