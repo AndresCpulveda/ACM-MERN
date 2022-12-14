@@ -42,7 +42,7 @@ const authenticate = async (req, res) => {
   }
 
   res.json({
-    id: account._id,
+    _id: account._id,
     name: account.name,
     email: account.email,
     token: generateJwt(account._id)
@@ -54,7 +54,7 @@ const confirmAccount = async (req, res) => {
   const {token} = req.params;
   const account = await Admin.findOne({token})
   if(!account) {
-    return res.status(404).json('Enlace no valido')
+    return res.status(404).json({msg: 'Enlace no valido'})
   }
   try {
     account.confirmed = true;
