@@ -19,7 +19,7 @@ const emailConfirm = async (data) => {
     subject: 'Enlace para confirmar tu cuenta',
     text: 'Confirma tu cuenta',
     html: `<p>Hola ${name} tu usuario fue creado, por favor confirma tu cuenta en el sigiente enlace: 
-    <a href="${process.env.FRONTEND_URL}/confirmar/${token} 
+    <a href="${process.env.FRONTEND_URL}/confirm/${token} 
     ">Confirmar Cuenta</a></p>
       <p>Si no creaste esta cuenta, puedes ignorar este mensaje</p>
     `

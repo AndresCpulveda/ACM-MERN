@@ -12,9 +12,7 @@ dotenv.config()
 
 connectDB()
 
-app.use(cors({
-  origin: "http://127.0.0.1:5173"
-}));
+app.use(cors());
 
 app.use("/api/administrators", routerAdministrators)
 app.use("/api/clients", routerClients)

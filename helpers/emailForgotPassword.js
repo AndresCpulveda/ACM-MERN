@@ -19,7 +19,7 @@ const emailForgotPswd = async (data) => {
     subject: 'Enlace para restablecer tu contraseña',
     text: 'Restablece tu contraseña',
     html: `<p>Hola ${name} parece que has olvidado tu contraseña, puedes restablecerla en el sigiente enlace: 
-    <a href="${process.env.FRONTEND_URL}/olvide-password/${token} 
+    <a href="${process.env.FRONTEND_URL}/forgot-password/${token} 
     ">Restablecer</a></p>
       <p>Si no olvidaste tu contraseña, puedes ignorar este mensaje</p>
     `
