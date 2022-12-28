@@ -45,6 +45,16 @@ const searchName = async (req, res) => {
   res.json(records)
 }
 
+const searchRepair = async (req, res) => {
+  const {repair} = req.body;
+  const regexp = new RegExp("^"+ repair); //Regurlar expression that allows to search any string that starts with the given string in the 'repair' variable
+  const records = await Client.find().where({repair: regexp}).sort('-createdAt')
+  if(records.length < 1) {
+    return res.status(404).json({msg: 'No hay registros con ese arreglo'})
+  }
+  res.json(records)
+}
+
 const deleteRecord = async (req, res) => {
   const {id} = req.params;
   const record = await Client.findById(id)
@@ -59,4 +69,4 @@ const deleteRecord = async (req, res) => {
   }
 }
 
-export {addRecord, getLastRecords, searchPlate, searchName, getAllRecords, deleteRecord}
+export {addRecord, getLastRecords, searchPlate, searchName, searchRepair, getAllRecords, deleteRecord}
