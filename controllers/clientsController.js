@@ -37,7 +37,8 @@ const searchPlate = async (req, res) => {
 
 const searchName = async (req, res) => {
   const {name} = req.body;
-  const records = await Client.find().where({client: name}).sort('-createdAt')
+  const regexp = new RegExp("^"+ name); //Regurlar expression that allows to search any string that starts with the given string in the 'name' variable
+  const records = await Client.find().where({client: regexp}).sort('-createdAt')
   if(records.length < 1) {
     return res.status(404).json({msg: 'No hay registros con ese nombre'})
   }
