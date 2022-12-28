@@ -6,10 +6,10 @@ import { addRecord, getAllRecords, getLastRecords, searchName, searchPlate } fro
 const routerClients = express.Router()
 
 routerClients.post("/", checkAuth, addRecord)
-routerClients.get("/last-records", checkAuth, getLastRecords)
+routerClients.post("/last-records", checkAuth, getLastRecords)
 routerClients.get("/all-records", checkAuth, getAllRecords)
-routerClients.get("/search-plate", checkAuth, searchPlate)
-routerClients.get("/search-name", checkAuth, searchName)
+routerClients.post("/search-plate", checkAuth, searchPlate)
+routerClients.post("/search-name", checkAuth, searchName)
 
 
 
