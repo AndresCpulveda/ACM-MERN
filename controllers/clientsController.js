@@ -1,6 +1,7 @@
 import Client from "../models/Clients.js";
 
 const addRecord = async (req, res) => {
+  console.log(req.body);
   const record = new Client(req.body)
   record.date = Date.now()
   try {
@@ -43,4 +44,18 @@ const searchName = async (req, res) => {
   res.json(records)
 }
 
-export {addRecord, getLastRecords, searchPlate, searchName, getAllRecords}
+const deleteRecord = async (req, res) => {
+  const {id} = req.params;
+  const record = await Client.findById(id)
+  if(!record) {
+    return res.status(404).json({msg: 'No se encontró registro'})
+  }
+  try {
+    await record.deleteOne()
+    res.json(record)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export {addRecord, getLastRecords, searchPlate, searchName, getAllRecords, deleteRecord}
