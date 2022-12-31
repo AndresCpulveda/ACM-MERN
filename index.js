@@ -12,7 +12,7 @@ dotenv.config()
 
 connectDB()
 
-const allowedDomains = [process.env.FRONTEND_URL]
+const allowedDomains = [process.env.FRONTEND_URL, 'http://localhost:5173']
 //Creamos una autorizacion de cors para interactuar entre en fronend desde una ip y el backend desde un ip diferente (ver vid 465)
 const corsOptions = {
   origin: function (origin, callback) {
