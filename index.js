@@ -13,7 +13,7 @@ dotenv.config()
 connectDB()
 
 // const allowedDomains = [process.env.FRONTEND_URL]
-// //Creamos una autorizacion de cors para interactuar entre en fronend desde una ip y el backend desde un ip diferente (ver vid 465)
+// //Creamos una autorizacion de cors para interactuar entre en fronend desde una ip y el backend desde un ip diferente (ver vid 523)
 // const corsOptions = {
 //   origin: function (origin, callback) {
 //     if(allowedDomains.indexOf(origin) !== -1) {
@@ -31,7 +31,7 @@ connectDB()
 // }));
 
 app.use(cors({
-  origin: 'https://acm-mern-frontend.vercel.app'
+  origin: '*'
 }));
 
 app.use("/api/administrators", routerAdministrators)
