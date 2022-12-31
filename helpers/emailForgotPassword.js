@@ -14,7 +14,7 @@ const emailForgotPswd = async (data) => {
   const {email, name, token} = data;
 
   const info = await transporter.sendMail({
-    from: 'ACM Administrador de Clientes Mecano',
+    from: '"APV - Administrador Pacientes Veterinaria" <apv@correo.com>',
     to: email,
     subject: 'Enlace para restablecer tu contraseña',
     text: 'Restablece tu contraseña',
