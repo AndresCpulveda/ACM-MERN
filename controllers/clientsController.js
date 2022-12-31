@@ -3,7 +3,7 @@ import Client from "../models/Clients.js";
 const addRecord = async (req, res) => {
   console.log(req.body);
   const record = new Client(req.body)
-  record.date = Date.now()
+  record.date = record.date || Date.now()
   try {
     const saved = await record.save()
     res.json(saved)
