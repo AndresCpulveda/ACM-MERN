@@ -121,6 +121,7 @@ const newPassword = async (req, res) => {
 
 
 const profile = (req, res) => {
+  console.log('from profile');
   res.json(req.admin)
 }
 
