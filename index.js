@@ -31,7 +31,7 @@ connectDB()
 // }));
 
 app.use(cors({
-  origin: 'https://acm-mern-frontend.vercel.app/'
+  origin: 'https://acm-mern-frontend-deploy.vercel.app/'
 }));
 
 app.use("/api/administrators", routerAdministrators)
