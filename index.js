@@ -27,7 +27,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions))////Permite que la app use los metodos http en cors
 app.use(cors({
-  origin: allowedDomains
+  origin: '*'
 }));
 
 app.use("/api/administrators", routerAdministrators)
